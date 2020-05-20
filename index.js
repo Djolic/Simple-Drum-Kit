@@ -1,31 +1,91 @@
+//
+// document.querySelector("button").addEventListener("click", mouseclick);
+//
+// function mouseclick(){
+//   alert("opaa");
+// }
+
+// same as "annonymus function"
 
 
-var randomNumber1=Math.ceil(Math.random()*6);
-var a="images/dice"+randomNumber1+".png";
-document.getElementsByTagName("img")[0].setAttribute("src", a);
-// var a=randomNumber1; //not really needed, bcs it can compare string in if statement, example: ABC4 is greated than ABC 1
+//detecting  pressed instrument
+for (var i = 0; i < 7; i++) {
+  document.querySelectorAll(".drum")[i].addEventListener("click", function() {
+    var instrument = this.innerHTML;
+    zvuk(instrument);
+    instrumentAnimation(instrument);
 
-var randomNumber2=Math.ceil(Math.random()*6);
-var b="images/dice"+randomNumber2+".png";
-document.getElementsByTagName("img")[1].setAttribute("src", b);
-// var b=randomNumber2;
-
-console.log([a]);
-console.log([b]);
-if(a>b){
-    document.getElementsByTagName("h1")[0].innerHTML="Player 1 Wins!";
-
+  });
 }
 
-else if(b===a){
-  document.getElementsByTagName("h1")[0].innerHTML="Draw!";
+// detecting keyboard press
+
+document.addEventListener("keydown", function(event){
+  zvuk(event.key);
+  instrumentAnimation(event.key);
+})
+
+
+function zvuk(key){
+  switch (key) {
+    case "w":
+      var crash = new Audio("sounds\\crash.mp3");
+      crash.play();
+      break;
+    case "a":
+      var kick = new Audio("sounds\\kick-bass.mp3");
+      kick.play();
+      break;
+    case "s":
+      var snare = new Audio("sounds\\snare.mp3");
+      snare.play();
+      break;
+    case "d":
+      var tom1 = new Audio("sounds\\tom-1.mp3");
+      tom1.play();
+      break;
+    case "j":
+      var tom2 = new Audio("sounds\\tom-2.mp3");
+      tom2.play();
+      break;
+    case "k":
+      var tom3 = new Audio("sounds\\tom-3.mp3");
+      tom3.play();
+      break;
+    case "l":
+      var tom4 = new Audio("sounds\\tom-4.mp3");
+      tom4.play();
+      break;
+    default:
+    console.log(key);
 }
-else {
-    document.getElementsByTagName("h1")[0].innerHTML="Player 2 Wins!";
 }
 
 
-$("body").click(function() {
-$("h1")[0].innerHTML="Refresh me!"
-// alert( "Refresh page for new roll!" );
-});
+function instrumentAnimation(currentKey){
+  var activeInstrument = document.querySelector("."+currentKey);
+  activeInstrument.classList.add("pressed");
+  setTimeout(function(){activeInstrument.classList.remove("pressed")}, 100);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// this.style.color="white";  //"this" targets clicked element and do action in it, in this case it changes color of element that is clicked
+// var zvuk = new Audio("sounds\\tom-1.mp3");
+// zvuk.play();
